@@ -1,0 +1,17 @@
+body { padding-top: 70px; }
+
+.section h1 {
+    font-size: 3em;
+    font-family: arial, helvetica;
+    color: #fff;
+    margin: 0;
+}
+
+.sub-content {
+    color: #fff;
+}
+
+#map {
+    height: 640px;
+    width: 100%;
+}
