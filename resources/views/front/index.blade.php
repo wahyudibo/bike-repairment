@@ -18,8 +18,8 @@
             <div class="row">
                 <div class="col-8 mx-auto">
                     <p class="sub-content">
-                        Jika anda memerlukan bantuan karena sepeda anda rusak atau anda menemukan ada sepeda yang rusak, silakan untuk menghubungi
-                        kami dan kami akan segera mengirimkan petugas untuk menangani masalah anda
+                        Jika anda memerlukan bantuan karena sepeda anda rusak atau anda menemukan sepeda yang rusak, silakan untuk menghubungi
+                        kami dan kami akan segera mengirimkan petugas untuk menangani masalah anda.
                     </p>
                     <button type="button" class="btn btn-primary" id="start">Buat Laporan</button>
                 </div>
@@ -103,9 +103,8 @@
                 <div class="row">
                     <div class="col-8 mx-auto">
                         <p class="sub-content">
-                            Laporan anda akan segera kami proses.
-                            <br/> No laporan anda adalah : 123456.
-                            <br/> Jumlah laporan yang sedang ditangani : 6
+                            Laporan anda akan segera kami proses dan petugas kami akan segera mendatangi anda. Dimohon untuk menunggu.
+                            <br/> Laporan anda telah terdaftar dengan id 123456 dan nomor antrian 6.
                         </p>
                     </div>
                 </div>
