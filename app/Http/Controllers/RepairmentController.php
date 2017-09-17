@@ -3,12 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 use App\Repairment;
 
 class RepairmentController extends Controller
 {
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name'   => 'required',
+            'phone'  => 'required',
+            'remark' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Validation error',
+                'data'    => $validator->errors()->all(),
+            ]);
+        }
+
         try {
             $repairment = new Repairment;
             $repairment->name            = $request->input('name');

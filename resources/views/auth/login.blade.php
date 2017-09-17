@@ -1,9 +1,17 @@
-@extends('layouts.master')
+@extends('layout.master')
+
+@section('styles')
+<style>
+body {
+    padding-top: 70px;
+}
+</style>
+@endsection
 
 @section('navbar')
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="/">Bengkel Sepeda Kampus UGM</a>
-</nav>
+
+@include('navbar.fixed-dark');
+
 @endsection
 
 @section('content')

@@ -1,0 +1,39 @@
+html, body, .container-fluid {
+    height:100%;
+}
+
+body {
+    padding-top: 70px;
+}
+
+.parsley-custom-error-message {
+    position: relative;
+    right: 2rem;
+    list-style: none;
+    color: #FF0000;
+    font-style: italic;
+}
+
+.section h1 {
+    font-size: 3em;
+    font-family: arial, helvetica;
+    color: #fff;
+    margin: 0;
+}
+
+.sub-content {
+    color: #fff;
+}
+
+.container-fluid {
+    width:100%;
+    position:absolute;
+    top:0;
+    padding:0;
+}
+
+#map {
+    height: 90%;
+    border-top:50px solid #fff;
+    border-bottom:20px solid #fff;
+}

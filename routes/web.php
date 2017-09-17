@@ -15,6 +15,15 @@ Route::get('/', function () {
     return view('front.index');
 });
 
-Auth::routes();
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/report', 'ReportController@index')->name('report');
+    Route::get('/work-unit', 'WorkUnitController@index')->name('work-unit');
+    Route::get('/bike-type', 'BikeTypeController@index')->name('bike-type');
+
+});

@@ -16,10 +16,10 @@ class CreateRepairmentsTable extends Migration
         Schema::create('repairments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('identity_number');
+            $table->string('identity_number')->nullable();
             $table->string('phone');
-            $table->integer('unit_id')->unsigned();
-            $table->integer('bike_type_id')->unsigned();
+            $table->integer('unit_id')->unsigned()->nullable();
+            $table->integer('bike_type_id')->unsigned()->nullable();
             $table->text('remark');
             $table->string('latitude');
             $table->string('longitude');
