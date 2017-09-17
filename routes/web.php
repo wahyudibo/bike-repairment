@@ -23,7 +23,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('/report', 'ReportController@index')->name('report');
-    Route::get('/work-unit', 'WorkUnitController@index')->name('work-unit');
-    Route::get('/bike-type', 'BikeTypeController@index')->name('bike-type');
 
+    Route::prefix('data')->group(function () {
+        Route::get('/work-unit', 'WorkUnitController@index')->name('work-unit');
+        Route::get('/bike-type', 'BikeTypeController@index')->name('bike-type');
+    });
 });
