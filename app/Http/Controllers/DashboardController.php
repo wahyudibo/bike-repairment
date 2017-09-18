@@ -21,6 +21,7 @@ class DashboardController extends Controller
         $status = request('status');
 
         $models = Repairment::select(
+            'repairments.id',
             'repairments.name',
             'repairments.identity_number',
             'repairments.phone',
@@ -29,7 +30,7 @@ class DashboardController extends Controller
         )
             ->join('work_units', 'repairments.work_unit_id', '=', 'work_units.id');
 
-        // only select report which created today or has WAITING or ON_PROGRESS status
+        // only select reports which created today or has WAITING or ON_PROGRESS status
         if ($status) {
             $status = strtoupper($status);
 
@@ -46,6 +47,8 @@ class DashboardController extends Controller
                                  DB::raw('DATE(repairments.created_at) = CURDATE()')
                              );
         }
+
+        $models = $models->orderBy('repairments.created_at');
 
         return DataTables::of($models->get())
             ->addColumn('action', 'datatable.dashboard')
