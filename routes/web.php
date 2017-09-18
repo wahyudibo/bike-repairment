@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('front.index');
+    return view('front');
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -25,7 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/report', 'ReportController@index')->name('report');
 
     Route::prefix('data')->group(function () {
-        Route::get('/work-unit', 'WorkUnitController@index')->name('work-unit');
-        Route::get('/bike-type', 'BikeTypeController@index')->name('bike-type');
+        Route::get('/work-units', 'WorkUnitController@index')->name('workUnits.index');
+        Route::get('/bike-types', 'BikeTypeController@index')->name('bikeTypes.index');
     });
 });

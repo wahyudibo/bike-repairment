@@ -44,10 +44,10 @@
             </a>
           <ul class="sidenav-second-level collapse" id="collapseMulti">
             <li>
-              <a href="{{ route('work-unit') }}">Unit Kerja</a>
+              <a href="{{ route('workUnits.index') }}">Unit Kerja</a>
             </li>
             <li>
-              <a href="{{ route('bike-type') }}">Tipe Sepeda</a>
+              <a href="{{ route('bikeTypes.index') }}">Tipe Sepeda</a>
             </li>
           </ul>
         </li>
