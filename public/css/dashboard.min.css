@@ -5,7 +5,6 @@
 
 .datatable td:nth-last-child(1) {
     text-align: center;
-    width: 6em;
 }
 
 div.dataTables_wrapper div.dataTables_processing {

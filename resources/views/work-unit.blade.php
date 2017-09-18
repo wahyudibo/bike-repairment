@@ -66,7 +66,7 @@
     $(function() {
         // Set sidebar menu to active
         $('li.nav-item').removeClass('active');
-        $('li.nav-item > a').removeClass('collapsed');
+        $('li:eq(2).nav-item > a').removeClass('collapsed');
         $('#dataMenuCollapse').addClass('show');
         $('#dataMenuCollapse > li:eq(0)').addClass('active');
 
@@ -82,7 +82,7 @@
                     }
                 },
                 { data: 'name' },
-                { data: 'action', 'searchable': false, 'orderable': false }
+                { data: 'action', searchable: false, orderable: false, width: '6em' }
             ]
         });
 

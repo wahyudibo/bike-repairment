@@ -43,7 +43,7 @@ class WorkUnitController extends Controller
                 'status'  => 'error',
                 'message' => 'Validation error',
                 'data'    => $validator->errors()->all(),
-            ]);
+            ], 400);
         }
 
         try {
@@ -54,7 +54,7 @@ class WorkUnitController extends Controller
             return response()->json([
                 'status'  => 'error',
                 'message' => $e->getMessage(),
-            ]);
+            ], 500);
         }
 
         return response()->json([
@@ -72,7 +72,7 @@ class WorkUnitController extends Controller
             return response()->json([
                 'status'  => 'error',
                 'message' => $e->getMessage(),
-            ]);
+            ], 500);
         }
 
         return response()->json([
@@ -89,7 +89,7 @@ class WorkUnitController extends Controller
             return response()->json([
                 'status'  => 'error',
                 'message' => $e->getMessage(),
-            ]);
+            ], 500);
         }
 
         return response()->json([

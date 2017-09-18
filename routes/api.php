@@ -30,3 +30,11 @@ Route::prefix('bike-types')->group(function () {
     Route::put('/{bikeType}', 'BikeTypeController@update');
     Route::delete('/{bikeType}', 'BikeTypeController@destroy');
 });
+
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', 'DashboardController@datatable');
+    Route::get('/stats', 'DashboardController@showStats');
+    Route::get('/{reportId}', 'DashboardController@show');
+    Route::put('/{reportId}', 'DashboardController@updateReportStatus');
+    Route::delete('/{reportId}', 'DashboardController@destroy');
+});

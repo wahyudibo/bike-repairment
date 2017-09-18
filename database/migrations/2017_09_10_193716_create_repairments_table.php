@@ -18,7 +18,7 @@ class CreateRepairmentsTable extends Migration
             $table->string('name');
             $table->string('identity_number')->nullable();
             $table->string('phone');
-            $table->integer('unit_id')->unsigned()->nullable();
+            $table->integer('work_unit_id')->unsigned()->nullable();
             $table->integer('bike_type_id')->unsigned()->nullable();
             $table->text('remark');
             $table->string('latitude');
@@ -26,6 +26,20 @@ class CreateRepairmentsTable extends Migration
             // Status : WAITING, ON_PROGRESS, DONE, CANCELED
             $table->string('status');
             $table->timestamps();
+        });
+
+        Schema::table('repairments', function (Blueprint $table) {
+            $table->foreign('work_unit_id')
+                ->references('id')
+                ->on('work_units')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+
+            $table->foreign('bike_type_id')
+                ->references('id')
+                ->on('bike_types')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
         });
     }
 
@@ -36,6 +50,11 @@ class CreateRepairmentsTable extends Migration
      */
     public function down()
     {
+        Schema::table('repairments', function (Blueprint $table) {
+            $table->dropForeign('repairments_work_unit_id_foreign');
+            $table->dropForeign('repairments_bike_type_id_foreign');
+        });
+
         Schema::dropIfExists('repairments');
     }
 }

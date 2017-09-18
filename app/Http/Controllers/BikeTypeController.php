@@ -43,7 +43,7 @@ class BikeTypeController extends Controller
                 'status'  => 'error',
                 'message' => 'Validation error',
                 'data'    => $validator->errors()->all(),
-            ]);
+            ], 400);
         }
 
         try {
@@ -54,7 +54,7 @@ class BikeTypeController extends Controller
             return response()->json([
                 'status'  => 'error',
                 'message' => $e->getMessage(),
-            ]);
+            ], 500);
         }
 
         return response()->json([
@@ -65,6 +65,18 @@ class BikeTypeController extends Controller
 
     public function update(BikeType $bikeType)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Validation error',
+                'data'    => $validator->errors()->all(),
+            ], 400);
+        }
+
         try {
             $bikeType->name = request('name');
             $bikeType->save();
@@ -72,7 +84,7 @@ class BikeTypeController extends Controller
             return response()->json([
                 'status'  => 'error',
                 'message' => $e->getMessage(),
-            ]);
+            ], 500);
         }
 
         return response()->json([
@@ -89,7 +101,7 @@ class BikeTypeController extends Controller
             return response()->json([
                 'status'  => 'error',
                 'message' => $e->getMessage(),
-            ]);
+            ], 500);
         }
 
         return response()->json([
