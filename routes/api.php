@@ -24,7 +24,9 @@ Route::prefix('work-units')->group(function () {
 });
 
 Route::prefix('bike-types')->group(function () {
-    Route::get('/', 'WorkUnitController@get');
-    Route::put('/', 'WorkUnitController@update');
-    Route::delete('/', 'WorkUnitController@destroy');
+    Route::get('/{bikeType}', 'BikeTypeController@get');
+    Route::get('/', 'BikeTypeController@datatable');
+    Route::post('/', 'BikeTypeController@store');
+    Route::put('/{bikeType}', 'BikeTypeController@update');
+    Route::delete('/{bikeType}', 'BikeTypeController@destroy');
 });
