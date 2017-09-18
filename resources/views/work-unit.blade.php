@@ -64,6 +64,12 @@
 @section('scripts')
 <script>
     $(function() {
+        // Set sidebar menu to active
+        $('li.nav-item').removeClass('active');
+        $('li.nav-item > a').removeClass('collapsed');
+        $('#dataMenuCollapse').addClass('show');
+        $('#dataMenuCollapse > li:eq(0)').addClass('active');
+
         var datatable = $('#workUnitDataTable').DataTable({
             processing: true,
             serverSide: true,

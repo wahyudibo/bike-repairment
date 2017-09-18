@@ -37,12 +37,12 @@
             </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#dataMenuCollapse">
               <i class="fa fa-fw fa-table"></i>
               <span class="nav-link-text">
                 Data</span>
             </a>
-          <ul class="sidenav-second-level collapse" id="collapseMulti">
+          <ul class="sidenav-second-level collapse" id="dataMenuCollapse">
             <li>
               <a href="{{ route('workUnits.index') }}">Unit Kerja</a>
             </li>
