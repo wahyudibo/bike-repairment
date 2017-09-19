@@ -24,12 +24,19 @@ class RepairmentController extends Controller
             ]);
         }
 
+        $name = $request->input('name');
+        $phone = $request->input('phone');
+        $firstName =  strtoupper(explode(' ', $name)[0]);
+        $sixDigitFromPhone = substr($phone, -6);
+        $reportNumber = "{$firstName}-{$sixDigitFromPhone}";
+
         try {
             $repairment = new Repairment;
+            $repairment->report_number   = $reportNumber;
             $repairment->name            = $request->input('name');
             $repairment->identity_number = $request->input('identityNumber');
             $repairment->phone           = $request->input('phone');
-            $repairment->unit_id         = $request->input('unit');
+            $repairment->work_unit_id    = $request->input('workUnit');
             $repairment->remark          = $request->input('remark');
             $repairment->bike_type_id    = $request->input('bikeType');
             $repairment->latitude        = $request->input('latitude');
@@ -43,9 +50,19 @@ class RepairmentController extends Controller
             ]);
         }
 
+        $waitingReports = Repairment::whereIn('status', [
+            'WAITING',
+            'ON_PROGRESS'
+        ])
+            ->count();
+
         return response()->json([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'Repairment report is sucessfully saved',
+            'data'    => [
+                'reportNumber'   => $repairment->report_number,
+                'waitingReports' => $waitingReports,
+            ]
         ]);
     }
 }

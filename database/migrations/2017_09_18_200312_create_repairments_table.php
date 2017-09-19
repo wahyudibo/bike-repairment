@@ -23,6 +23,7 @@ class CreateRepairmentsTable extends Migration
             $table->text('remark');
             $table->string('latitude');
             $table->string('longitude');
+            $table->string('report_number')->unique();
             // Status : WAITING, ON_PROGRESS, DONE, CANCELED
             $table->string('status');
             $table->timestamps();

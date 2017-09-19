@@ -77,7 +77,7 @@
                         </div>
                         <div class="form-group">
                             <label for="unit">Unit Kerja</label>
-                            <select class="form-control" name="unit" id="unit">
+                            <select class="form-control" name="workUnit" id="workUnit">
                                     <option value="">-- Pilih Unit Kerja --</option>
                                     <option value="1">Fakultas MIPA</option>
                                     <option value="2">Fakultas Teknik</option>
@@ -122,8 +122,17 @@
                 <div class="row">
                     <div class="col-8 mx-auto">
                         <p class="sub-content">
-                            Laporan anda akan segera kami proses dan petugas kami akan segera mendatangi anda. Dimohon untuk menunggu.
-                            <br/> Laporan anda telah terdaftar dengan id 123456 dan nomor antrian 6.
+                            Laporan anda akan segera kami proses dan petugas kami akan segera mendatangi anda.
+                            <br/>
+                            ID Laporan:
+                                <strong>
+                                    <span id="reportNumber"></span>
+                                </strong>
+                            <br/>
+                            No Antrian:
+                                <strong>
+                                    <span id="waitingReports"></span>
+                                </strong>
                         </p>
                     </div>
                 </div>
@@ -219,7 +228,11 @@
                     $('.section:eq(2)').block();
                 },
             })
-            .done(function(data) {
+            .done(function(res) {
+                console.log(res);
+                $('#reportNumber').html(res.data.reportNumber);
+                $('#waitingReports').html(res.data.waitingReports);
+
                 $.fn.fullpage.moveTo(4);
             })
             .fail(function(xhr) {
