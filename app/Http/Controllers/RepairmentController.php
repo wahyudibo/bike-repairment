@@ -79,4 +79,38 @@ class RepairmentController extends Controller
 
         return view('user-location', compact('googleMapApiKey', 'repairment'));
     }
+
+    public function updateStatus(Repairment $repairment)
+    {
+        if (!request('status')) {
+
+            switch ($repairment->status) {
+                case 'WAITING':
+                    $status = 'ON_PROGRESS';
+                    break;
+
+                case 'ON_PROGRESS':
+                    $status = 'DONE';
+                    break;
+            }
+
+        } else {
+            $status = request('status');
+        }
+
+        try {
+            $repairment->status = $status;
+            $repairment->save();
+        } catch (\Exception $e) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => "Report status is successfully changed to {$repairment->status}"
+        ]);
+    }
 }

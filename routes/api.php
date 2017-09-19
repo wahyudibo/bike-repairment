@@ -13,7 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/repairment', 'RepairmentController@store');
+Route::prefix('repairment')->group(function () {
+    Route::post('/', 'RepairmentController@store');
+    Route::put('/{repairment}/status', 'RepairmentController@updateStatus');
+});
 
 Route::prefix('work-units')->group(function () {
     Route::get('/{workUnit}', 'WorkUnitController@get');
@@ -34,6 +37,4 @@ Route::prefix('bike-types')->group(function () {
 Route::prefix('dashboard')->group(function () {
     Route::get('/', 'DashboardController@datatable');
     Route::get('/stats', 'DashboardController@showStats');
-    Route::get('/{reportId}', 'DashboardController@show');
-    Route::put('/{reportId}', 'DashboardController@updateReportStatus');
 });

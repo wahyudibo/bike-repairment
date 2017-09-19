@@ -150,8 +150,83 @@
                 return false;
             });
 
-            $('.btn-update-status').on('click', function() {});
-            $('.btn-delete').on('click', function() {});
+            $('.btn-update-status').on('click', function() {
+                var nextStatus;
+                var repairmentId = $(this).val();
+                var status = $(this).closest('tr').children('td:eq(6)').text();
+
+                switch (status) {
+                    case 'MENUNGGU':
+                        nextStatus = 'DIKERJAKAN';
+                        break;
+
+                    case 'DIKERJAKAN':
+                        nextStatus = 'SELESAI';
+                        break;
+                }
+
+                swal({
+                    title: 'Ubah Status Laporan',
+                    html: 'Ubah status laporan ke <strong>' + nextStatus + '</strong> ?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#007bff',
+                    cancelButtonText: 'Batal',
+                    confirmButtonText: 'Ya'
+                })
+                .then(function () {
+                    $.ajax({
+                        url: '{{ url('api/repairment') }}' + '/' + repairmentId + '/status',
+                        method: 'PUT',
+                        dataType: 'json',
+                    })
+                    .done(function(res) {
+                        if (res.status === 'success') {
+                            updateStats();
+                            datatable.clear().draw();
+                        } else if (res.status === 'error') {
+                            swal('Error!', res.message, 'error');
+                        }
+                    })
+                    .fail(function(xhr) {
+                        swal('Error!', xhr.responseText, 'error');
+                    });
+                });
+            });
+
+            $('.btn-delete').on('click', function() {
+                var repairmentId = $(this).val();
+                var repairmentReportNo = $(this).closest('tr').children('td:eq(1)').text();
+
+                swal({
+                    title: 'Batalkan Laporan',
+                    html: 'Batalkan laporan <strong>' + repairmentReportNo + '</strong> ?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonText: 'Tidak',
+                    confirmButtonText: 'Batalkan'
+                })
+                .then(function () {
+                    $.ajax({
+                        url: '{{ url('api/repairment') }}' + '/' + repairmentId + '/status',
+                        method: 'PUT',
+                        data: { status: 'CANCELED' },
+                        dataType: 'json',
+                    })
+                    .done(function(res) {
+                        if (res.status === 'success') {
+                            updateStats();
+                            datatable.clear().draw();
+                        } else if (res.status === 'error') {
+                            swal('Error!', res.message, 'error');
+                        }
+                    })
+                    .fail(function(xhr) {
+                        swal('Error!', xhr.responseText, 'error');
+                    });
+                });
+            });
         });
 
         $('#statusFilter').on('change', function() {
