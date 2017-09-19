@@ -65,4 +65,18 @@ class RepairmentController extends Controller
             ]
         ]);
     }
+
+    public function showMap(Request $request)
+    {
+        $googleMapApiKey = env('GOOGLE_MAPS_API_KEY');
+        $repairmentId = $request->repairmentId;
+
+        $repairment = Repairment::find($repairmentId);
+
+        if (!$repairment) {
+            abort(404);
+        }
+
+        return view('user-location', compact('googleMapApiKey', 'repairment'));
+    }
 }

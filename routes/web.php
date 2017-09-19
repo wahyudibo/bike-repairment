@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('front');
+    $googleMapApiKey = env('GOOGLE_MAPS_API_KEY');
+
+    return view('front', compact('googleMapApiKey'));
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -23,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('/report', 'ReportController@index')->name('report');
+    Route::get('/repairment/{repairmentId}/map', 'RepairmentController@showMap');
 
     Route::prefix('data')->group(function () {
         Route::get('/work-units', 'WorkUnitController@index')->name('workUnits.index');

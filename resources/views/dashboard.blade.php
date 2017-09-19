@@ -54,6 +54,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>No.Laporan</th>
                         <th>Nama</th>
                         <th>NIP / NIU</th>
                         <th>No Telpon</th>
@@ -65,6 +66,7 @@
                 <tfoot>
                     <tr>
                         <th>No</th>
+                        <th>No.Laporan</th>
                         <th>Nama</th>
                         <th>NIP / NIU</th>
                         <th>No Telpon</th>
@@ -104,6 +106,7 @@
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }
                 },
+                { data: 'report_number' },
                 { data: 'name' },
                 { data: 'identity_number' },
                 { data: 'phone' },
@@ -138,18 +141,34 @@
             ]
         });
 
+        datatable.on('draw', function() {
+            $('.btn-view').on('click', function() {
+                var repairmentId = $(this).val();
+                var url = '{{ url('repairment') }}' + '/' + repairmentId + '/map';
+
+                window.open(url);
+                return false;
+            });
+
+            $('.btn-update-status').on('click', function() {});
+            $('.btn-delete').on('click', function() {});
+        });
+
         $('#statusFilter').on('change', function() {
             datatable.clear().draw();
         });
 
-        // Set interval to always get latest data
-        setInterval(function() {
+        function updateStats() {
             $.getJSON('{{ url('api/dashboard/stats') }}', function(res) {
                 $('#stats').find('.card-body:eq(0) > h1').text(res.data.stats.waiting);
                 $('#stats').find('.card-body:eq(1) > h1').text(res.data.stats.on_progress);
                 $('#stats').find('.card-body:eq(2) > h1').text(res.data.stats.done);
             });
+        }
 
+        // Set interval to always get latest data
+        setInterval(function() {
+            updateStats();
             datatable.clear().draw();
         }, 180000);
     })

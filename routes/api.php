@@ -36,5 +36,4 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/stats', 'DashboardController@showStats');
     Route::get('/{reportId}', 'DashboardController@show');
     Route::put('/{reportId}', 'DashboardController@updateReportStatus');
-    Route::delete('/{reportId}', 'DashboardController@destroy');
 });

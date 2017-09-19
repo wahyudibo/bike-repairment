@@ -22,6 +22,7 @@ class DashboardController extends Controller
 
         $models = Repairment::select(
             'repairments.id',
+            'repairments.report_number',
             'repairments.name',
             'repairments.identity_number',
             'repairments.phone',

@@ -146,19 +146,18 @@
 <script src="{{ asset('vendor/js/scrolloverflow.min.js') }}"></script>
 <script src="{{ asset('vendor/js/jquery.fullpage.min.js') }}"></script>
 <script src="{{ asset('js/front.min.js') }}"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuEW184kfvX3SNt7lwHD1nqoN-1U8jdeU&callback=initMap">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ $googleMapApiKey }}&callback=initMap">
 </script>
 
 <script type="text/javascript">
     function initMap() {
         // Init map with UGM location
-        var location = new google.maps.LatLng(-7.7713794, 110.3753111);
+        var location = new google.maps.LatLng(-7.775433, 110.377626);
 
         var mapCanvas = document.getElementById('map');
         var mapOptions = {
             center: location,
             zoom: 16,
-            panControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
         var map = new google.maps.Map(mapCanvas, mapOptions);
