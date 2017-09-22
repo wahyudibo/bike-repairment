@@ -11,11 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    $googleMapApiKey = env('GOOGLE_MAPS_API_KEY');
-
-    return view('front', compact('googleMapApiKey'));
-});
+Route::get('/', 'FrontController@index')->name('front');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');

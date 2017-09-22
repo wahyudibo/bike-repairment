@@ -79,20 +79,19 @@
                             <label for="unit">Unit Kerja</label>
                             <select class="form-control" name="workUnit" id="workUnit">
                                     <option value="">-- Pilih Unit Kerja --</option>
-                                    <option value="1">Fakultas MIPA</option>
-                                    <option value="2">Fakultas Teknik</option>
-                                    <option value="3">Fakultas ISIPOL</option>
-                                    <option value="4">Fakultas Ekonomika & Bisnis</option>
-                                    <option value="5">Fakultas Kedokteran</option>
+                                    @foreach ($workUnits as $workUnit)
+                                        <option value="{{ $workUnit->id }}">{{ $workUnit->name }}</option>
+                                    @endforeach
                                 </select>
                         </div>
                         <div class="form-group">
                             <label for="bikeType">Tipe Sepeda</label>
                             <select class="form-control" name="bikeType" id="bikeType">
-                                    <option value="">-- Pilih Tipe Sepeda --</option>
-                                    <option value="1">Sepeda Kampus</option>
-                                    <option value="2">Sepeda Dinas</option>
-                                </select>
+                                <option value="">-- Pilih Tipe Sepeda --</option>
+                                @foreach ($bikeTypes as $bikeType)
+                                    <option value="{{ $bikeType->id }}">{{ $bikeType->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <br>
                         <button type="button" class="btn btn-primary btn-block" id="formBtn">Selanjutnya</button>
