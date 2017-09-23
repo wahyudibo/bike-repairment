@@ -1,0 +1,1 @@
+<button type="button" class="btn btn-primary btn-view" value="{{ $id }}"><i class="fa fa-eye"></i></button>

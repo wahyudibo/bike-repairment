@@ -38,3 +38,8 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', 'DashboardController@datatable');
     Route::get('/stats', 'DashboardController@showStats');
 });
+
+Route::prefix('report')->group(function () {
+    Route::get('/datatable', 'ReportController@datatable');
+    Route::get('/graph', 'ReportController@graph');
+});
