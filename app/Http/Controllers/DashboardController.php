@@ -35,23 +35,22 @@ class DashboardController extends Controller
         if ($status) {
             $status = strtoupper($status);
 
-            $models = $models->where('status', $status);
+            $models = $models->where('repairments.status', $status);
 
             if (!in_array($status, ['WAITING', 'ON_PROGRESS'])) {
-                $models = $models->where(
-                    DB::raw('DATE(repairments.created_at) = CURDATE()')
-                );
+                $models = $models->whereRaw('DATE(repairments.created_at) = CURDATE()');
             }
         } else {
-            $models = $models->whereIn('status', ['WAITING', 'ON_PROGRESS'])
-                             ->orWhere(
-                                 DB::raw('DATE(repairments.created_at) = CURDATE()')
-                             );
+            $models = $models->whereIn('repairments.status', ['WAITING', 'ON_PROGRESS'])
+                             ->orWhere(function ($query) {
+                                $query->whereRaw('DATE(repairments.created_at) = CURDATE()');
+                             });
         }
 
-        $models = $models->orderBy('repairments.created_at');
+        $models = $models->orderBy('repairments.created_at')
+                         ->get();
 
-        return DataTables::of($models->get())
+        return DataTables::of($models)
             ->addColumn('action', 'datatable.dashboard')
             ->toJson();
     }
