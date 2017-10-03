@@ -15,6 +15,7 @@ class BikeTypesTableSeeder extends Seeder
         $data = [
             ['name' => 'Sepeda Kampus', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['name' => 'Sepeda Dinas', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['name' => 'Sepeda Pribadi', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
         ];
 
         DB::table('bike_types')->insert($data);
