@@ -40,6 +40,7 @@
 
                         <input type="hidden" name="latitude" id="lat" value="">
                         <input type="hidden" name="longitude" id="long" value="">
+                        <input type="hidden" name="subscription" id="subscription" value="">
 
                         <div class="form-group">
                             <label for="name">Nama</label>
@@ -145,6 +146,7 @@
 <script src="{{ asset('vendor/js/scrolloverflow.min.js') }}"></script>
 <script src="{{ asset('vendor/js/jquery.fullpage.min.js') }}"></script>
 <script src="{{ asset('js/front.min.js') }}"></script>
+<script src="{{ asset('js/swRegistration.js') }}"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ $googleMapApiKey }}&callback=initMap">
 </script>
 

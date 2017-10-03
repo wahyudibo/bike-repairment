@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Repairment;
+use App\Notifications\RepairmentOnProgress;
+use App\Notifications\RepairmentDone;
+use DB;
 
 class RepairmentController extends Controller
 {
@@ -27,8 +30,9 @@ class RepairmentController extends Controller
         $name = $request->input('name');
         $phone = $request->input('phone');
         $firstName =  strtoupper(explode(' ', $name)[0]);
-        $sixDigitFromPhone = substr($phone, -6);
-        $reportNumber = "{$firstName}-{$sixDigitFromPhone}";
+        $sixDigitFromPhone = substr($phone, -4);
+        $randomNumber = substr(time(), -4);
+        $reportNumber = "{$firstName}-{$sixDigitFromPhone}{$randomNumber}";
 
         try {
             $repairment = new Repairment;
@@ -49,6 +53,13 @@ class RepairmentController extends Controller
                 'message' => $e->getMessage(),
             ]);
         }
+
+        $subscription = json_decode($request->input('subscription'));
+        $repairment->updatePushSubscription(
+            $subscription->endpoint,
+            $subscription->keys->p256dh,
+            $subscription->keys->auth
+        );
 
         $waitingReports = Repairment::whereIn('status', [
             'WAITING',
@@ -83,7 +94,6 @@ class RepairmentController extends Controller
     public function updateStatus(Repairment $repairment)
     {
         if (!request('status')) {
-
             switch ($repairment->status) {
                 case 'WAITING':
                     $status = 'ON_PROGRESS';
@@ -106,6 +116,19 @@ class RepairmentController extends Controller
                 'status'  => 'error',
                 'message' => $e->getMessage(),
             ], 500);
+        }
+
+        if ($repairment->status === 'ON_PROGRESS') {
+            $repairment->notify(new RepairmentOnProgress());
+        } elseif ($repairment->status === 'DONE') {
+            $repairment->notify(new RepairmentDone());
+
+            $subscription = DB::table('push_subscriptions')
+                ->select('endpoint')
+                ->where('repairment_id', $repairment->id)
+                ->first();
+
+            $repairment->deletePushSubscription($subscription->endpoint);
         }
 
         return response()->json([

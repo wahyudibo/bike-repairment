@@ -169,6 +169,7 @@ return [
          */
          Fideloper\Proxy\TrustedProxyServiceProvider::class,
          Yajra\DataTables\DataTablesServiceProvider::class,
+         NotificationChannels\WebPush\WebPushServiceProvider::class,
 
         /*
          * Application Service Providers...

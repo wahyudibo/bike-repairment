@@ -3,10 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 use DB;
 
 class Repairment extends Model
 {
+    use Notifiable;
+    use HasPushSubscriptions;
+
     public static function stats()
     {
         $sql = "
